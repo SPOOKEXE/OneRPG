@@ -11,7 +11,7 @@ Module.Armors = {
 	BronzeArmor = {
 		RequiredLevel = 3,
 		BonusMaxHealth = 20,
-		BonusWalkSpeed = 2,
+		BonusWalkSpeed = 1,
 
 		Display = CreateDisplayData( 'Bronze Armor', Color3.fromRGB(128, 73, 22) ),
 	},
@@ -19,7 +19,7 @@ Module.Armors = {
 	IronArmor = {
 		RequiredLevel = 5,
 		BonusMaxHealth = 40,
-		BonusWalkSpeed = 3,
+		BonusWalkSpeed = 2,
 
 		Display = CreateDisplayData( 'Iron Armor', Color3.fromRGB(86, 86, 86) ),
 	},

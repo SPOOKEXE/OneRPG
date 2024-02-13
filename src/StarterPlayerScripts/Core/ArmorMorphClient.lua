@@ -1,6 +1,5 @@
 
 local CollectionService = game:GetService('CollectionService')
-local Players = game:GetService('Players')
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ReplicatedAssets = ReplicatedStorage:WaitForChild('Assets')
@@ -10,7 +9,7 @@ local ArmorConfigModule = ReplicatedModules.Data.ArmorData
 
 local SystemsContainer = {}
 
-local ArmorMorphBillboards = {}
+-- local ArmorMorphBillboards = {}
 
 local function SetProperties( Parent, Properties )
 	for propName, propValue in pairs( Properties ) do
@@ -42,16 +41,16 @@ function Module.SetupArmorMorph( ArmorMorph )
 	TemplateBillboard.Frame.InfoLabel.Text = string.format('Level %s | +%s HP | +%s WS', tostring(ArmorConfig.RequiredLevel), tostring(ArmorConfig.BonusMaxHealth), tostring(ArmorConfig.BonusWalkSpeed))
 	TemplateBillboard.Parent = ArmorMorph
 
-	ArmorMorphBillboards[ ArmorMorph ] = TemplateBillboard
+	-- ArmorMorphBillboards[ ArmorMorph ] = TemplateBillboard
 
 end
 
-function Module.CleanupArmorMorph( ArmorMorph )
-	if ArmorMorphBillboards[ ArmorMorph ] then
-		ArmorMorphBillboards[ ArmorMorph ]:Destroy()
-	end
-	ArmorMorphBillboards[ ArmorMorph ] = nil
-end
+-- function Module.CleanupArmorMorph( ArmorMorph )
+-- 	if ArmorMorphBillboards[ ArmorMorph ] then
+-- 		ArmorMorphBillboards[ ArmorMorph ]:Destroy()
+-- 	end
+-- 	ArmorMorphBillboards[ ArmorMorph ] = nil
+-- end
 
 function Module.Start()
 
@@ -60,7 +59,7 @@ function Module.Start()
 		task.spawn(Module.SetupArmorMorph, Model)
 	end
 	CollectionService:GetInstanceAddedSignal( CollectionArmorMorphTag ):Connect( Module.SetupArmorMorph )
-	CollectionService:GetInstanceRemovedSignal( CollectionArmorMorphTag ):Connect( Module.CleanupArmorMorph )
+	-- CollectionService:GetInstanceRemovedSignal( CollectionArmorMorphTag ):Connect( Module.CleanupArmorMorph )
 
 end
 

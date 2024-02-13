@@ -78,7 +78,7 @@ function Module.SetupLevelDoor( Model )
 			return
 		end
 
-		if LocalPlayer.Character ~= hit.Parent then
+		if not hit:IsDescendantOf(LocalPlayer.Character) then
 			return
 		end
 

@@ -5,6 +5,11 @@ local Players = game:GetService("Players")
 local DataStoreService = game:GetService("DataStoreService")
 local PlayerDataStore = DataStoreService:GetDataStore('PlayerData1')
 
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ReplicatedModules = require(ReplicatedStorage:WaitForChild("Modules"))
+
+local LevelingDataModule = ReplicatedModules.Data.Leveling
+
 local SystemsContainer = {}
 
 local function CreateStatValue( statName, statValue, parent )
@@ -13,10 +18,6 @@ local function CreateStatValue( statName, statValue, parent )
 	valueObject.Value = statValue
 	valueObject.Parent = parent
 	return valueObject
-end
-
-local function GetRequiredExperience( levelValue )
-	return 100 + (levelValue.Value * 50) * math.pow( 1.1, math.min(levelValue, 1000) )
 end
 
 local function DisplayLevelUpMessage( LocalPlayer, levelValue, customDuration : number? )
@@ -31,7 +32,7 @@ local function OnExperienceChanged( LocalPlayer, experienceValue, levelValue, at
 
 	local doneLeveledUpMessage = false
 
-	local requiredExperience = GetRequiredExperience( levelValue )
+	local requiredExperience = LevelingDataModule.GetRequiredExperience( levelValue.Value )
 	while experienceValue.Value >= requiredExperience do
 		experienceValue.Value -= requiredExperience
 		levelValue.Value += 1
@@ -40,7 +41,7 @@ local function OnExperienceChanged( LocalPlayer, experienceValue, levelValue, at
 			doneLeveledUpMessage = true
 			DisplayLevelUpMessage( LocalPlayer, levelValue, nil )
 		end
-		requiredExperience = GetRequiredExperience( levelValue )
+		requiredExperience = LevelingDataModule.GetRequiredExperience( levelValue.Value )
 	end
 
 end
@@ -54,9 +55,9 @@ function Module.OnPlayerAdded( LocalPlayer : Player )
 	leaderstats.Name = 'leaderstats'
 	leaderstats.Parent = LocalPlayer
 
-	local levelValue = CreateStatValue( 'Level', 9e9, leaderstats )
+	local levelValue = CreateStatValue( 'Level', 100, leaderstats )
 	local experienceValue = CreateStatValue( 'Experience', 0, leaderstats )
-	local currencyValue = CreateStatValue( 'Money', 9e99, leaderstats )
+	local currencyValue = CreateStatValue( 'Money', 1e9, leaderstats )
 
 	local hiddenStats = Instance.new('Folder')
 	hiddenStats.Name = 'HiddenStats'

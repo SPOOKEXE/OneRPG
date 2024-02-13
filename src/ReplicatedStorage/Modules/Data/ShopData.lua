@@ -1,4 +1,9 @@
 
+local function CreateDisplayData( Text, TextColor )
+	return { Text = Text, TextColor3 = TextColor }
+end
+
+-- // Module // --
 local Module = {}
 
 Module.Types = {
@@ -20,6 +25,7 @@ Module.Items = {
 		-- shop
 		BuyPrice = 100,
 		SellPrice = 25,
+		Display = CreateDisplayData( 'Iron Staff', Color3.new(1, 1, 1) ),
 		-- combat
 		MinDamage = 1,
 		MaxDamage = 3,
@@ -31,6 +37,7 @@ Module.Items = {
 		-- shop
 		BuyPrice = 250,
 		SellPrice = 100,
+		Display = CreateDisplayData( 'Iron Staff', Color3.new(1, 1, 1) ),
 		-- combat
 		MinDamage = 5,
 		MaxDamage = 10,
@@ -43,6 +50,7 @@ Module.Items = {
 		-- shop
 		BuyPrice = 1250,
 		SellPrice = 300,
+		Display = CreateDisplayData( 'Iron Staff', Color3.new(1, 1, 1) ),
 		-- combat
 		MinDamage = 25,
 		MaxDamage = 50,
@@ -51,7 +59,7 @@ Module.Items = {
 
 }
 
-Module.CollectionTagShops = 'ShopNPC'
+Module.CollectionTagShops = 'ShopModel'
 
 Module.ShopTypes = {
 	Buy = 1,
