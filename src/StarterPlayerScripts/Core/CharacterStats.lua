@@ -32,6 +32,17 @@ function Module.OnCharacterAdded( NewCharacter )
 		delta = (Humanoid.WalkSpeed - 16)
 		CharacterDataFrame.StatsFrame.SubStatsFrame.WalkSpeedFrame.WalkSpeed.Text = (delta > 0 and '+' or '')..tostring(delta)
 	end)
+
+	CharacterDataFrame.StatsFrame.HealthFrame.Health.Text = tostring(math.round(Humanoid.Health))..'/'..tostring(Humanoid.MaxHealth)
+	CharacterDataFrame.StatsFrame.HealthFrame.Bar.Size = UDim2.fromScale( math.clamp(Humanoid.Health / Humanoid.MaxHealth, 0, 1), 1 )
+	Humanoid:GetPropertyChangedSignal('MaxHealth'):Connect(function()
+		TweenSize( CharacterDataFrame.StatsFrame.HealthFrame.Bar, UDim2.fromScale( math.clamp(Humanoid.Health / Humanoid.MaxHealth, 0, 1), 1 ), nil )
+		CharacterDataFrame.StatsFrame.HealthFrame.Health.Text = tostring(math.round(Humanoid.Health))..'/'..tostring(Humanoid.MaxHealth)
+	end)
+	Humanoid:GetPropertyChangedSignal('Health'):Connect(function()
+		TweenSize( CharacterDataFrame.StatsFrame.HealthFrame.Bar, UDim2.fromScale( math.clamp(Humanoid.Health / Humanoid.MaxHealth, 0, 1), 1 ), nil )
+		CharacterDataFrame.StatsFrame.HealthFrame.Health.Text = tostring(math.round(Humanoid.Health))..'/'..tostring(Humanoid.MaxHealth)
+	end)
 end
 
 function Module.ToggleAttributesFrame( forced : boolean? )
